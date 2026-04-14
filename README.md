@@ -6,7 +6,7 @@ System Architecture
 
 The architecture follows a request/response flow where a client accesses the application hosted within a Docker container on an AWS EC2 instance. Security is maintained via SSH key pairs and AWS Security Groups acting as firewalls.
 
-Table of Contents
+**Table of Contents**
 
 [Abstract](#abstract)
 
@@ -65,15 +65,15 @@ Table of Contents
 [Conclusion](#conclusions)
 
 
-Abstract
+**Abstract**
 
 The primary objective of this project is to eliminate inconsistencies between development and production environments. By using Docker, the application is packaged with all its required dependencies, ensuring portability and consistent performance when deployed on a remote AWS EC2 cloud server. The system leverages the scalability of Amazon Web Services to provide a reliable platform for modern web applications.
 
-Introduction
+**Introduction**
 
 In modern software development, deployment is as critical as the code itself. Many applications fail not because of bugs, but due to improper environment configurations. This project utilizes DevOps principles—specifically containerization and cloud computing—to create a robust deployment pipeline that is automated, reliable, and efficient. By moving away from manual setups, developers can ensure that their software runs the same way regardless of the underlying hardware.
 
-Problem Statement
+**Problem Statement**
 
 Traditional deployment methods often suffer from:
 
@@ -85,11 +85,11 @@ Scalability: Traditional manual setups are difficult to scale or replicate acros
 
 Downtime: Updates often require stopping the entire service, leading to loss of availability.
 
-Existing System
+**Existing System**
 
 The existing system typically involves setting up a physical or virtual server and manually installing the runtime environment, libraries, and application code. This "Bare Metal" or standard Virtual Machine approach requires a detailed manual of steps that must be followed perfectly every time a new server is added.
 
-Limitations of Existing System
+**Limitations of Existing System**
 
 The limitations include:
 
@@ -101,11 +101,11 @@ Configuration Drift: Over time, servers that started identical become different 
 
 Lack of Isolation: A failure in one application can potentially crash the entire host system.
 
-Proposed System
+**Proposed System**
 
 The proposed system utilizes Docker to create a lightweight, isolated container for the application. This container is then deployed on an AWS EC2 instance. This approach ensures that the application is decoupled from the host operating system, making it highly portable and easy to manage.
 
-Objectives
+**Objectives**
 
 To create a portable environment that remains consistent from development to production.
 
@@ -117,11 +117,11 @@ To minimize the resource footprint of the application deployment.
 
 To provide a secure environment using cloud-native firewalls and SSH.
 
-Scope of Project
+**Scope of Project**
 
 The scope includes the configuration of an AWS EC2 instance, the installation of the Docker engine on Ubuntu Linux, the creation of a custom Docker image for a Python application, and the final deployment of the containerized app. It also covers basic network security and performance validation.
 
-Methodology
+**Methodology**
 
 The project follows a systematic 5-phase approach:
 
@@ -135,7 +135,7 @@ Containerization: Writing the Dockerfile and building the application image.
 
 Deployment: Running the container and validating the live application.
 
-Technology Stack
+**Technology Stack**
 
 Cloud Provider: AWS (Elastic Compute Cloud - EC2)
 
@@ -149,13 +149,13 @@ Networking: SSH (Port 22), HTTP (Port 80)
 
 Tools: Terminal/CLI, Docker Desktop (for local testing)
 
-Core Concepts
+**Core Concepts**
 
 Containerization: Encapsulating an application with its environment.
 Cloud Computing: Delivering computing services over the internet for faster innovation.
 DevOps: A set of practices that combines software development and IT operations.
 
-AWS EC2 Detailed Explanation
+**AWS EC2 Detailed Explanation**
 
 AWS EC2 provides scalable computing capacity. It allows users to launch virtual servers, manage storage, and configure networking and security.
 
@@ -165,7 +165,7 @@ Security Groups: Act as a virtual firewall for the instance to control inbound a
 
 Key Pairs: RSA keys used for secure SSH access.
 
-Docker Detailed Explanation
+**Docker Detailed Explanation**
 
 Docker is a platform for developing, shipping, and running applications.
 
@@ -175,7 +175,7 @@ Docker Container: A runnable instance of an image. Unlike VMs, containers share 
 
 Dockerfile: A text document that contains all the commands a user could call on the command line to assemble an image.
 
-Ubuntu Linux Fundamentals
+**Ubuntu Linux Fundamentals**
 
 Ubuntu is a popular open-source Linux distribution. This project utilizes its robust CLI to manage the Docker engine and network configurations. Key commands include:
 
@@ -185,11 +185,11 @@ systemctl: Used to examine and control the state of the system and service manag
 
 ssh: Secure shell for remote command execution.
 
-Implementation Plan
+**Implementation Plan**
 
 The plan involves creating a virtual server on AWS, ensuring it has the correct security ports open, installing Docker, pulling or building the application image, and finally running the application in a detached mode so it continues to run after the SSH session ends.
 
-Step-by-Step Implementation
+**Step-by-Step Implementation**
 
 Phase 1: Infrastructure Setup
 
@@ -246,7 +246,7 @@ sudo docker build -t my-python-app .
 sudo docker run -d -p 80:8000 --name web-server my-python-app
 
 
-Security and Networking
+**Security and Networking**
 
 Firewall (Security Groups): Port 80 is opened specifically for public web traffic, while all other ports remain closed.
 
@@ -254,7 +254,7 @@ Key-Based Auth: Password login is disabled; only users with the private .pem key
 
 Isolation: If the application is compromised, the attacker is trapped inside the container, protecting the host OS.
 
-Testing and Validation
+**Testing and Validation**
 
 Status Check: Run sudo docker ps to ensure the container is "Up".
 
@@ -262,11 +262,11 @@ Browser Test: Enter the EC2 Public IP in your browser to verify the application 
 
 Log Monitoring: Use sudo docker logs web-server to view application output and debug any internal errors.
 
-Results and Observations
+**Results and Observations**
 
 The application was successfully deployed and reachable via the public internet. Deployment time was significantly reduced compared to manual methods. The environment remained consistent regardless of the local machine used for initial development.
 
-Benefits of the System
+**Benefits of the System**
 
 Consistency: Identical environments across development, testing, and production.
 
@@ -276,7 +276,7 @@ Resource Efficiency: Multiple containers can run on a single EC2 instance withou
 
 Scalability: Easy to replicate the same container across hundreds of instances if needed.
 
-Comparative Analysis
+**Comparative Analysis**
 
 Feature
 
@@ -314,15 +314,15 @@ High (High overhead)
 
 Efficient (Shared Kernel)
 
-Performance Analysis
+**Performance Analysis**
 
 Docker containers provide faster startup and better performance due to their lightweight architecture. They do not require a separate OS kernel, which reduces the CPU and RAM overhead significantly compared to traditional Virtual Machines.
 
-Cost Analysis
+**Cost Analysis**
 
 Using AWS Free Tier (t2.micro) keeps the initial cost at zero. Furthermore, because Docker is more efficient with resources, you can run more services on a smaller instance, reducing the overall cloud bill in a production setting.
 
-Challenges Faced
+**Challenges Faced**
 
 Docker Permission Issues: Resolving the need for 'sudo' or adding users to the docker group.
 
@@ -330,7 +330,7 @@ Network Configuration: Correctly mapping the container ports to the AWS host por
 
 Key Management: Managing the security and accessibility of the .pem file.
 
-Limitations
+**Limitations**
 
 Single Node: This deployment is on a single EC2 instance and lacks auto-scaling and high availability.
 
@@ -338,7 +338,7 @@ State Management: Storing data inside a container is not permanent; external vol
 
 Network Latency: Slight overhead due to the container networking bridge.
 
-Future Enhancements
+**Future Enhancements**
 
 CI/CD Integration: Automatically deploy changes using GitHub Actions or Jenkins.
 
@@ -346,7 +346,7 @@ Orchestration: Transition to Kubernetes (EKS) for managing multiple containers a
 
 Monitoring: Implement tools like Prometheus and Grafana for real-time health tracking.
 
-Real World Applications
+**Real World Applications**
 
 Microservices Architecture: Breaking down large applications into small, manageable containers.
 
@@ -354,6 +354,6 @@ SaaS Platforms: Deploying customer-specific instances quickly.
 
 Development Environments: Giving every developer an identical local setup in minutes.
 
-Conclusion
+**Conclusion**
 
 This project successfully demonstrates a robust method for deploying cloud-native applications. By combining the scalability of AWS with the portability of Docker, we ensure a reliable deployment process that aligns with modern DevOps practices.
